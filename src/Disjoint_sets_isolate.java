@@ -8,7 +8,7 @@ public class Disjoint_sets_isolate {
     public static void main(String[] args) throws IOException {
         Reader reader = new Reader();
         Writer writer = new Writer();
-        UFDNN uf = new UFDNN(reader.nextInt());
+        UFDNNCacheOptimised uf = new UFDNNCacheOptimised(reader.nextInt());
         int m = reader.nextInt();
         while (m-- > 0) {
             char operation = reader.next().charAt(0);

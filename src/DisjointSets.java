@@ -7,30 +7,21 @@ public class DisjointSets {
     public static void main(String[] args) throws IOException {
         Reader reader = new Reader();
         Writer writer = new Writer();
-        reader.nextInt();
-        UFDNNFromC uf = new UFDNNFromC();
-        uf.init();
-        int m = reader.nextInt();
+        int n = reader.nextUInt();
+        UFDNNCacheOptimised uf = new UFDNNCacheOptimised(n);
+        int m = reader.nextUInt();
         while (m-- > 0) {
-            int operation = reader.nextInt();
-            int s = reader.nextInt();
-            int t = reader.nextInt();
-            int sRoot, tRoot;
-            if ((sRoot=uf.find(s)) == (tRoot = uf.find(t))) {
-                if (operation == 0) {
-                    writer.write('1');
-                    writer.write('\n');
-                }
-            }
-            else if (operation == 0) {
-                writer.write('0');
+            int operation = reader.nextUInt();
+            int s = reader.nextUInt();
+            int t = reader.nextUInt();
+            if (operation == 0) {
+                writer.write(uf.find(s) == uf.find(t)?'1':'0');
                 writer.write('\n');
-            }
-            else if (operation == 1)
-                uf.union(sRoot,tRoot);
-            else {
+            } else if (operation == 1)
+                uf.union(s,t);
+            else if (uf.find(s) != uf.find(t)){
                 uf.delete(s);
-                uf.union(tRoot,s);
+                uf.union(t,s);
             }
         }
         writer.flush();
@@ -95,7 +86,7 @@ public class DisjointSets {
             while (read() != c) ;
         }
 
-        public int nextInt() throws IOException {
+        public int nextUInt() throws IOException {
             int ret = 0;
             byte c = read();
             while (c <= ' ')
