@@ -22,14 +22,11 @@ public class ArraySmoothening {
             arr[i++] = -cnt;
         }
         Arrays.sort(arr);
-        int max = - arr[0];
-        int toRemove = 0, z, y, diff;
-        for (int j = 0; j < arr.length-1; j++) {
-            max -= diff = Math.min(z = (k-toRemove)/(j+1), y = arr[j + 1] - arr[j]);
-            if (z < y)
-                break;
-            toRemove += (j + 1) * diff;
-
+        int kLimitedDiff, unlimitedDiff, toRemove, max = -arr[0];
+        for (int positions = 1; positions < arr.length; positions++) {
+            max -= toRemove = Math.min(kLimitedDiff = k/positions, unlimitedDiff = arr[positions] - arr[positions-1]);
+            if (kLimitedDiff < unlimitedDiff) break;
+            k -= positions * toRemove;
         }
         writer.write(max);
         writer.flush();
