@@ -206,6 +206,9 @@ public class MaxPQ<Key> implements Iterable<Key> {
             k = j;
         }
     }
+    public void sinkMax() {
+        sink(1);
+    }
 
     /***************************************************************************
      * Helper functions for compares and swaps.
